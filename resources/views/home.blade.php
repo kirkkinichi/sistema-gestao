@@ -9,5 +9,7 @@
     <button onclick="window.location.href='{{ route('grupo-economico') }}';">CRUD - Grupo Economico</button>
 
     <button onclick="window.location.href='{{ route('bandeira') }}';">CRUD - Bandeira</button>
+
+    <button onclick="window.location.href='{{ route('unidade') }}';">CRUD - Unidade</button>
 </body>
 </html>

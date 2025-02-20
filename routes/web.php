@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UnidadeController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\GrupoEconomicoController;
@@ -15,6 +16,10 @@ Route::get('/grupo-economico', function () {
 
 Route::get('/bandeira', [BandeiraController::class, 'create'])->name('bandeira');
 
+Route::get('/unidade', [UnidadeController::class, 'create'])->name('unidade');
+
 Route::resource('/api/grupo-economico', GrupoEconomicoController::class);
 
 Route::resource('/api/bandeira', BandeiraController::class);
+
+Route::resource('/api/unidade', UnidadeController::class);
