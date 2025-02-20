@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Grupo Econômico</title>
+    <title>Grupo Econômico - CRUD</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
+
 <body>
     <h1>Grupo Econômico - CRUD</h1>
 
@@ -57,19 +59,22 @@
                 e.preventDefault();
                 var nome = $('#nome').val();
                 $.ajax({
-                    url: '{{ url("/api/grupo-economico") }}',
+                    url: '{{ url('/api/grupo-economico') }}',
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
                         nome: nome
                     },
                     success: function(response) {
-                        $('#response').html('Grupo Econômico criado com sucesso: ' + response.nome);
-                        $('#grupoList').append('<li>' + response.nome + ' (ID: ' + response.id + ')</li>');
+                        $('#response').html('Grupo Econômico criado com sucesso: ' + response
+                            .nome);
+                        $('#grupoList').append('<li>' + response.nome + ' (ID: ' + response.id +
+                            ')</li>');
                         $('#nome').val('');
                     },
                     error: function(xhr) {
-                        $('#response').html('Erro ao criar grupo econômico: ' + xhr.responseText);
+                        $('#response').html('Erro ao criar grupo econômico: ' + xhr
+                            .responseText);
                     }
                 });
             });
@@ -79,17 +84,19 @@
                 var id = $('#updateId').val();
                 var nome = $('#updateNome').val();
                 $.ajax({
-                    url: '{{ url("/api/grupo-economico") }}/' + id,
+                    url: '{{ url('/api/grupo-economico') }}/' + id,
                     type: 'PUT',
                     data: {
                         _token: '{{ csrf_token() }}',
                         nome: nome
                     },
                     success: function(response) {
-                        $('#response').html('Grupo Econômico atualizado com sucesso: ' + response.nome);
+                        $('#response').html('Grupo Econômico atualizado com sucesso: ' +
+                            response.nome);
                     },
                     error: function(xhr) {
-                        $('#response').html('Erro ao atualizar grupo econômico: ' + xhr.responseText);
+                        $('#response').html('Erro ao atualizar grupo econômico: ' + xhr
+                            .responseText);
                     }
                 });
             });
@@ -98,7 +105,7 @@
                 e.preventDefault();
                 var id = $('#deleteId').val();
                 $.ajax({
-                    url: '{{ url("/api/grupo-economico") }}/' + id,
+                    url: '{{ url('/api/grupo-economico') }}/' + id,
                     type: 'DELETE',
                     data: {
                         _token: '{{ csrf_token() }}',
@@ -109,7 +116,8 @@
                         loadData();
                     },
                     error: function(xhr) {
-                        $('#response').html('Erro ao deletar grupo econômico: ' + xhr.responseText);
+                        $('#response').html('Erro ao deletar grupo econômico: ' + xhr
+                            .responseText);
                     }
                 });
             });
@@ -120,12 +128,13 @@
 
             function loadData() {
                 $.ajax({
-                    url: '{{ url("/api/grupo-economico") }}',
+                    url: '{{ url('/api/grupo-economico') }}',
                     type: 'GET',
                     success: function(response) {
                         $('#grupoList').html('');
                         response.forEach(function(item) {
-                            $('#grupoList').append('<li>' + item.nome + ' (ID: ' + item.id + ')</li>');
+                            $('#grupoList').append('<li>' + item.nome + ' (ID: ' + item.id +
+                                ')</li>');
                         });
                     },
                     error: function(xhr) {
@@ -136,4 +145,5 @@
         });
     </script>
 </body>
+
 </html>
