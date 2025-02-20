@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Bandeira;
+use App\Models\GrupoEconomico;
+
 class BandeiraController extends Controller
 {
     /**
@@ -11,7 +14,8 @@ class BandeiraController extends Controller
      */
     public function index()
     {
-        //
+        $bandeiras = Bandeira::with('grupoEconomico')->get();
+        return response()->json($bandeiras);
     }
 
     /**
@@ -19,7 +23,8 @@ class BandeiraController extends Controller
      */
     public function create()
     {
-        //
+        $grupoEconomicos = GrupoEconomico::all();
+        return view('bandeira', compact('grupoEconomicos'));
     }
 
     /**
@@ -27,15 +32,22 @@ class BandeiraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'grupo_economico_id' => 'required|exists:grupo_economico,id',
+        ]);
+
+        $bandeira = Bandeira::create($validated);
+        return response()->json($bandeira, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $bandeira = Bandeira::with('grupoEconomico')->findOrFail($id);
+        return response()->json($bandeira);
     }
 
     /**
@@ -49,16 +61,26 @@ class BandeiraController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'grupo_economico_id' => 'required|exists:grupo_economico,id',
+        ]);
+
+        $bandeira = Bandeira::findOrFail($id);
+        $bandeira->update($validated);
+
+        return response()->json($bandeira);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $bandeira = Bandeira::findOrFail($id);
+        $bandeira->delete();
+        return response()->json(null, 204);
     }
 }

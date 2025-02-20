@@ -7,5 +7,7 @@
 </head>
 <body>
     <button onclick="window.location.href='{{ route('grupo-economico') }}';">CRUD - Grupo Economico</button>
+
+    <button onclick="window.location.href='{{ route('bandeira') }}';">CRUD - Bandeira</button>
 </body>
 </html>
