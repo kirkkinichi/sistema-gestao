@@ -14,8 +14,8 @@ class BandeiraController extends Controller
      */
     public function index()
     {
-        $bandeiras = Bandeira::with('grupoEconomico')->get();
-        return response()->json($bandeiras);
+        $bandeiras = Bandeira::all();
+        return view('bandeira.index', ['bandeiras' => $bandeiras]);
     }
 
     /**
@@ -24,7 +24,7 @@ class BandeiraController extends Controller
     public function create()
     {
         $grupoEconomicos = GrupoEconomico::all();
-        return view('bandeira', compact('grupoEconomicos'));
+        return view('bandeira.create', ['grupoEconomicos' => $grupoEconomicos]);
     }
 
     /**
@@ -34,11 +34,11 @@ class BandeiraController extends Controller
     {
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'grupo_economico_id' => 'required|exists:grupo_economico,id',
+            'grupo_economico_id' => 'required|integer'
         ]);
 
         $bandeira = Bandeira::create($validated);
-        return response()->json($bandeira, 201);
+        return redirect('/bandeira');
     }
 
     /**
@@ -46,16 +46,17 @@ class BandeiraController extends Controller
      */
     public function show($id)
     {
-        $bandeira = Bandeira::with('grupoEconomico')->findOrFail($id);
-        return response()->json($bandeira);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $bandeira = Bandeira::find($id);
+        $grupoEconomicos = GrupoEconomico::all();
+        return view('bandeira.edit', compact('bandeira', 'grupoEconomicos'));
     }
 
     /**
@@ -65,13 +66,12 @@ class BandeiraController extends Controller
     {
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'grupo_economico_id' => 'required|exists:grupo_economico,id',
+            'grupo_economico_id' => 'required|integer'
         ]);
 
         $bandeira = Bandeira::findOrFail($id);
         $bandeira->update($validated);
-
-        return response()->json($bandeira);
+        return redirect('/bandeira');
     }
 
     /**
@@ -79,8 +79,8 @@ class BandeiraController extends Controller
      */
     public function destroy($id)
     {
-        $bandeira = Bandeira::findOrFail($id);
+        $bandeira = Bandeira::find($id);
         $bandeira->delete();
-        return response()->json(null, 204);
+        return redirect('/bandeira');
     }
 }

@@ -1,15 +1,9 @@
-<form method="POST" action="/grupo-economico/{{ $grupo->id }}">
-    @csrf
-    @method('PATCH')
-    <label for="updateNome">Novo Nome:</label>
-    <input type="text" id="updateNome" name="nome" value="{{ $grupo->nome }}">
-    <br>
-    <button type="submit">Atualizar</button>
-    <button form='delete-form'>Deletar</button>
-    <a href="/grupo-economico">Cancelar</a>
-</form>
-
-<form method="POST" action="/grupo-economico/{{ $grupo->id }}" id='delete-form' class="hidden">
-    @csrf
-    @method('DELETE')
-</form>
+<x-layout>
+    <form method="POST" action="/grupo-economico/{{ $grupoEconomico->id }}">
+        @csrf
+        @method('PATCH')
+        <label for="nome">Nome do Grupo Econômico:</label>
+        <input type="text" id="nome" name="nome" value="{{ $grupoEconomico->nome }}" required>
+        <button type="submit">Editar</button>
+    </form>
+</x-layout>

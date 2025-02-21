@@ -13,8 +13,8 @@ class GrupoEconomicoController extends Controller
      */
     public function index()
     {
-        $grupoEconomico = GrupoEconomico::all();
-        return view('grupo-economico.index', ['grupoEconomico' => $grupoEconomico]);
+        $gruposEconomicos = GrupoEconomico::all();
+        return view('grupo-economico.index', ['gruposEconomicos' => $gruposEconomicos]);
     }
 
     /**
@@ -56,7 +56,7 @@ class GrupoEconomicoController extends Controller
     {
         $grupoEconomico = GrupoEconomico::where('id', $id)->first();
         return view('grupo-economico.edit', [
-            'grupo' => $grupoEconomico
+            'grupoEconomico' => $grupoEconomico
         ]);
     }
 
