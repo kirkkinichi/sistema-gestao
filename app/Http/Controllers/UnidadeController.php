@@ -13,8 +13,8 @@ class UnidadeController extends Controller
      */
     public function index()
     {
-        $unidades = Unidade::with('bandeira')->get();
-        return response()->json($unidades);
+        $unidades = Unidade::all();
+        return view('unidade.index', ['unidades' => $unidades]);
     }
 
     /**
@@ -23,7 +23,7 @@ class UnidadeController extends Controller
     public function create()
     {
         $bandeiras = Bandeira::all();
-        return view('unidade', compact('bandeiras'));
+        return view('unidade.create', ['bandeiras' => $bandeiras]);
     }
 
     /**
@@ -31,16 +31,18 @@ class UnidadeController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $CNPJ = preg_replace('/[^0-9]/', '', $request->input('CNPJ'));
+        $request->merge(['CNPJ' => $CNPJ]);
+
+        $validate = $request->validate([
             'nome_fantasia' => 'required|string|max:255',
             'razao_social' => 'required|string|max:255',
-            'cnpj' => 'required|string|max:14',
-            'bandeira_id' => 'required|exists:bandeira,id',
+            'CNPJ' => 'required|string|max:255',
+            'bandeira_id' => 'required|integer',
         ]);
 
-        $unidade = Unidade::create($validated);
-
-        return response()->json($unidade, 201);
+        $unidade = Unidade::create($validate);
+        return redirect('/unidades');
     }
 
     /**
@@ -48,8 +50,12 @@ class UnidadeController extends Controller
      */
     public function show($id)
     {
-        $unidade = Unidade::with('bandeira')->findOrFail($id);
-        return response()->json($unidade);
+        $unidade = Unidade::where('id', $id)->first();
+        $bandeiras = Bandeira::all();
+        return view('unidade.show', [
+            'unidade' => $unidade,
+            'bandeiras' => $bandeiras
+        ]);
     }
 
     /**
@@ -57,9 +63,12 @@ class UnidadeController extends Controller
      */
     public function edit($id)
     {
-        $unidade = Unidade::findOrFail($id);
+        $unidade = Unidade::where('id', $id)->first();
         $bandeiras = Bandeira::all();
-        return view('unidade.edit', compact('unidade', 'bandeiras'));
+        return view('unidade.edit', [
+            'unidade' => $unidade,
+            'bandeiras' => $bandeiras
+        ]);
     }
 
     /**
@@ -67,17 +76,19 @@ class UnidadeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
+        $CNPJ = preg_replace('/[^0-9]/', '', $request->input('CNPJ'));
+        $request->merge(['CNPJ' => $CNPJ]);
+
+        $validate = $request->validate([
             'nome_fantasia' => 'required|string|max:255',
             'razao_social' => 'required|string|max:255',
-            'cnpj' => 'required|string|max:14',
-            'bandeira_id' => 'required|exists:bandeira,id',
+            'CNPJ' => 'required|string|max:255',
+            'bandeira_id' => 'required|integer',
         ]);
 
         $unidade = Unidade::findOrFail($id);
-        $unidade->update($validated);
-
-        return response()->json($unidade);
+        $unidade->update($validate);
+        return redirect('/unidades');
     }
 
     /**
@@ -87,6 +98,6 @@ class UnidadeController extends Controller
     {
         $unidade = Unidade::findOrFail($id);
         $unidade->delete();
-        return response()->json(null, 204);
+        return redirect('/unidades');
     }
 }
