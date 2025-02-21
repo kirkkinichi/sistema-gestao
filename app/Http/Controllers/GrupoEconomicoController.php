@@ -14,7 +14,7 @@ class GrupoEconomicoController extends Controller
     public function index()
     {
         $grupoEconomico = GrupoEconomico::all();
-        return response()->json($grupoEconomico);
+        return view('grupo-economico.index', ['grupoEconomico' => $grupoEconomico]);
     }
 
     /**
@@ -22,7 +22,7 @@ class GrupoEconomicoController extends Controller
      */
     public function create()
     {
-        //
+        return view('grupo-economico.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class GrupoEconomicoController extends Controller
         ]);
 
         $grupoEconomico = GrupoEconomico::create($validated);
-        return response()->json($grupoEconomico, 201);
+        return redirect('/grupo-economico');
     }
 
     /**
@@ -43,30 +43,35 @@ class GrupoEconomicoController extends Controller
      */
     public function show($id)
     {
-        $grupoEconomico = GrupoEconomico::findOrFail($id);
-        return response()->json($grupoEconomico);
+        $grupoEconomico = GrupoEconomico::where('id', $id)->first();
+        return view('grupo-economico.show', [
+            'grupo' => $grupoEconomico
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $grupoEconomico = GrupoEconomico::where('id', $id)->first();
+        return view('grupo-economico.edit', [
+            'grupo' => $grupoEconomico
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        $validated = $request->validate([
+        $validated = request()->validate([
             'nome' => 'required|string|max:255',
         ]);
 
         $grupoEconomico = GrupoEconomico::findOrFail($id);
         $grupoEconomico->update($validated);
-        return response()->json($grupoEconomico);
+        return redirect('/grupo-economico');
     }
 
     /**
@@ -76,6 +81,6 @@ class GrupoEconomicoController extends Controller
     {
         $grupoEconomico = GrupoEconomico::findOrFail($id);
         $grupoEconomico->delete();
-        return response()->json(null, 204);
+        return redirect('/grupo-economico');
     }
 }
