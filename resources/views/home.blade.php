@@ -3,4 +3,5 @@
     <button onclick="window.location.href='/bandeira';">CRUD - Bandeira</button>
     <button onclick="window.location.href='/unidades';">CRUD - Unidade</button>
     <button onclick="window.location.href='/colaboradores';">CRUD - Colaborador</button>
+    <button onclick="window.location.href='/relatorio';">Relatório</button>
 </x-layout>
