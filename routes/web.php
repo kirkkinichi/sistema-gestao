@@ -12,7 +12,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/relatorio', [RelatorioController::class, 'index']);
+Route::get('/relatorio', [RelatorioController::class, 'index'])->name('relatorio');
 
 // Configuração de rotas para o CRUD do Grupo Econômico
 Route::get('/grupo-economico', [GrupoEconomicoController::class, 'index']);
