@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Unidade;
 
 class Bandeira extends Model
 {
@@ -14,5 +15,10 @@ class Bandeira extends Model
     public function grupoEconomico()
     {
         return $this->belongsTo(GrupoEconomico::class);
+    }
+
+    public function unidades()
+    {
+        return $this->hasMany(Unidade::class);
     }
 }

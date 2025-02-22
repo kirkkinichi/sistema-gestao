@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Colaborador;
+use App\Models\Bandeira;
 
 
 class Unidade extends Model
@@ -17,5 +19,10 @@ class Unidade extends Model
     public function bandeira()
     {
         return $this->belongsTo(Bandeira::class);
+    }
+
+    public function colaboradores()
+    {
+        return $this->hasMany(Colaborador::class);
     }
 }

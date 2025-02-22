@@ -6,10 +6,13 @@ use App\Http\Controllers\BandeiraController;
 use App\Http\Controllers\GrupoEconomicoController;
 use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\UnidadeController;
+use App\Http\Controllers\RelatorioController;
 
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/relatorio', [RelatorioController::class, 'index']);
 
 // Configuração de rotas para o CRUD do Grupo Econômico
 Route::get('/grupo-economico', [GrupoEconomicoController::class, 'index']);
