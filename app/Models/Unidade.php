@@ -12,7 +12,7 @@ class Unidade extends Model
 
     protected $table = 'unidade';
 
-    protected $fillable = ['nome_fantasia', 'razao_social', 'CNPJ', 'bandeira_id'];
+    protected $fillable = ['nome_fantasia', 'razao_social', 'cnpj', 'bandeira_id'];
 
     public function bandeira()
     {

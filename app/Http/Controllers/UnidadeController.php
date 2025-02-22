@@ -31,13 +31,13 @@ class UnidadeController extends Controller
      */
     public function store(Request $request)
     {
-        $CNPJ = preg_replace('/[^0-9]/', '', $request->input('CNPJ'));
-        $request->merge(['CNPJ' => $CNPJ]);
+        $cnpj = preg_replace('/[^0-9]/', '', $request->input('cnpj'));
+        $request->merge(['cnpj' => $cnpj]);
 
         $validate = $request->validate([
             'nome_fantasia' => 'required|string|max:255',
             'razao_social' => 'required|string|max:255',
-            'CNPJ' => 'required|string|max:255',
+            'cnpj' => ['required', 'string', 'size:14', new \App\Rules\CnpjValido],
             'bandeira_id' => 'required|integer',
         ]);
 
@@ -76,13 +76,13 @@ class UnidadeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $CNPJ = preg_replace('/[^0-9]/', '', $request->input('CNPJ'));
-        $request->merge(['CNPJ' => $CNPJ]);
+        $cnpj = preg_replace('/[^0-9]/', '', $request->input('cnpj'));
+        $request->merge(['cnpj' => $cnpj]);
 
         $validate = $request->validate([
             'nome_fantasia' => 'required|string|max:255',
             'razao_social' => 'required|string|max:255',
-            'CNPJ' => 'required|string|max:255',
+            'cnpj' => ['required', 'string', 'size:14', new \App\Rules\CnpjValido],
             'bandeira_id' => 'required|integer',
         ]);
 

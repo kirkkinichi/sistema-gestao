@@ -20,7 +20,7 @@
         <label for="razao_social">Razão Social:</label>
         <input type="text" id="razao_social" name="razao_social" required>
 
-        <label for="cnpj">CNPJ:</label>
+        <label for="cnpj">cnpj:</label>
         <input type="text" id="cnpj" name="cnpj" required>
 
         <label for="bandeira_id">Bandeira:</label>
