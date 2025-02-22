@@ -31,10 +31,13 @@ class ColaboradorController extends Controller
      */
     public function store(Request $request)
     {
+        $cpf = preg_replace('/[^0-9]/', '', $request->input('cpf'));
+        $request->merge(['cpf' => $cpf]);
+        
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|string|max:255',
-            'cpf' => 'required|string|max:255',
+            'cpf' => ['required', 'string', 'size:11', new \App\Rules\CpfValido],
             'unidade_id' => 'required|integer',
         ]);
 
@@ -73,10 +76,13 @@ class ColaboradorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $cpf = preg_replace('/[^0-9]/', '', $request->input('cpf'));
+        $request->merge(['cpf' => $cpf]);
+
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|string|max:255',
-            'cpf' => 'required|string|max:255',
+            'cpf' => ['required', 'string', 'size:11', new \App\Rules\CpfValido],
             'unidade_id' => 'required|integer',
         ]);
 

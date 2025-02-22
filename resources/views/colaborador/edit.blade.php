@@ -12,6 +12,9 @@
             <input type="email" name="email" id="email" value="{{ $colaborador->email }}" required>
             <label for="cpf">cpf:</label>
             <input type="text" name="cpf" id="cpf" value="{{ $colaborador->cpf }}" required>
+            @error('cpf')
+                <small style="color: red; display: block;">{{ $message }}</small>
+            @enderror
             <label for="unidade_id">Unidade:</label>
             <select name="unidade_id" id="unidade_id">
                 @foreach ($unidades as $unidade)

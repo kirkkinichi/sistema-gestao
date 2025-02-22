@@ -5,11 +5,14 @@
         <form method="POST" action="/colaboradores">
             @csrf
             <label for="nome">Nome:</label>
-            <input type="text" name="nome" id="nome" required>
+            <input type="text" name="nome" id="nome" value="{{ old('nome') }}" required>
             <label for="email">E-mail:</label>
-            <input type="email" name="email" id="email" required>
-            <label for="cpf">cpf:</label>
-            <input type="text" name="cpf" id="cpf" required>
+            <input type="email" name="email" id="email" value="{{ old('email') }}" required>
+            <label for="cpf">CPF:</label>
+            <input type="text" name="cpf" id="cpf" value="{{ old('cpf') }}" required>
+            @error('cpf')
+                <small style="color: red; display: block;">{{ $message }}</small>
+            @enderror
             <label for="unidade_id">Unidade:</label>
             <select name="unidade_id" id="unidade_id">
                 @foreach ($unidades as $unidade)
