@@ -2,4 +2,5 @@
     <button onclick="window.location.href='/grupo-economico';">CRUD - Grupo Economico</button>
     <button onclick="window.location.href='/bandeira';">CRUD - Bandeira</button>
     <button onclick="window.location.href='/unidades';">CRUD - Unidade</button>
+    <button onclick="window.location.href='/colaboradores';">CRUD - Colaborador</button>
 </x-layout>

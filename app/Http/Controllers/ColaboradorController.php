@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Colaborador;
+use App\Models\Unidade;
 use Illuminate\Http\Request;
 
 class ColaboradorController extends Controller
@@ -11,7 +13,8 @@ class ColaboradorController extends Controller
      */
     public function index()
     {
-        //
+        $colaboradores = Colaborador::all();
+        return view('colaborador.index', ['colaboradores' => $colaboradores]);
     }
 
     /**
@@ -19,7 +22,8 @@ class ColaboradorController extends Controller
      */
     public function create()
     {
-        //
+        $unidades = Unidade::all();
+        return view('colaborador.create', ['unidades' => $unidades]);
     }
 
     /**
@@ -27,38 +31,67 @@ class ColaboradorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+            'cpf' => 'required|string|max:255',
+            'unidade_id' => 'required|integer',
+        ]);
+
+        Colaborador::create($validated);
+        return redirect('/colaboradores');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $colaborador = Colaborador::where('id', $id)->first();
+        $unidade = Unidade::where('id', $colaborador->unidade_id)->first();
+        return view('colaborador.show', [
+            'colaborador' => $colaborador,
+            'unidade' => $unidade
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $colaborador = Colaborador::where('id', $id)->first();
+        $unidades = Unidade::all();
+        return view('colaborador.edit', [
+            'colaborador' => $colaborador,
+            'unidades' => $unidades
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
+            'cpf' => 'required|string|max:255',
+            'unidade_id' => 'required|integer',
+        ]);
+
+        $colaboradores = Colaborador::findOrFail($id);
+        $colaboradores->update($validated);
+        return redirect('/colaboradores');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $colaboradores = Colaborador::findOrFail($id);
+        $colaboradores->delete();
+        return redirect('/colaboradores');
     }
 }
