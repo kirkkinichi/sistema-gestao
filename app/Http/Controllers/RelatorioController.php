@@ -41,7 +41,7 @@ class RelatorioController extends Controller
                         'unidades' => $bandeira->unidades->map(function ($unidade) use ($tags, $search) {
                             return [
                                 'nome_fantasia' => in_array('unidade', $tags) ? $unidade->nome_fantasia : null,
-                                'razao_social' => in_array('unidade', $tags) ? $unidade->razao_social : null,
+                                'razao_social' => in_array('razao_social', $tags) ? $unidade->razao_social : null,
                                 'cnpj' => in_array('cnpj', $tags) ? $unidade->cnpj : null,
                                 'colaboradores' => $unidade->colaboradores
                                     ->filter(function ($colaborador) use ($search) {
