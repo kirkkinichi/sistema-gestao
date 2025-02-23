@@ -14,6 +14,8 @@ class Colaborador extends Model
 
     protected $fillable = ['nome', 'email', 'cpf', 'unidade_id'];
 
+    public $timestamps = true;
+
     public function unidade()
     {
         return $this->belongsTo(Unidade::class);

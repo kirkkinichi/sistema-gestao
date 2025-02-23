@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auditoria;
 use App\Models\Colaborador;
 use App\Models\Unidade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ColaboradorController extends Controller
 {
@@ -33,7 +35,7 @@ class ColaboradorController extends Controller
     {
         $cpf = preg_replace('/[^0-9]/', '', $request->input('cpf'));
         $request->merge(['cpf' => $cpf]);
-        
+
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|string|max:255',
@@ -41,7 +43,16 @@ class ColaboradorController extends Controller
             'unidade_id' => 'required|integer',
         ]);
 
-        Colaborador::create($validated);
+        $colaborador = Colaborador::create($validated);
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Colaborador criado',
+            'valores' => json_encode($colaborador->getAttributes()),
+            'ip' => $request->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/colaboradores');
     }
 
@@ -88,6 +99,15 @@ class ColaboradorController extends Controller
 
         $colaboradores = Colaborador::findOrFail($id);
         $colaboradores->update($validated);
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Colaborador atualizado',
+            'valores' => json_encode($colaboradores->getChanges()),
+            'ip' => $request->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/colaboradores');
     }
 
@@ -98,6 +118,15 @@ class ColaboradorController extends Controller
     {
         $colaboradores = Colaborador::findOrFail($id);
         $colaboradores->delete();
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Colaborador removido',
+            'valores' => json_encode($colaboradores->getAttributes()),
+            'ip' => request()->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/colaboradores');
     }
 }

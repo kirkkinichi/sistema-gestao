@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auditoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Bandeira;
 use App\Models\GrupoEconomico;
@@ -38,6 +40,15 @@ class BandeiraController extends Controller
         ]);
 
         $bandeira = Bandeira::create($validated);
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Bandeira criada',
+            'valores' => json_encode($bandeira->getAttributes()),
+            'ip' => $request->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/bandeira');
     }
 
@@ -56,6 +67,7 @@ class BandeiraController extends Controller
     {
         $bandeira = Bandeira::find($id);
         $grupoEconomicos = GrupoEconomico::all();
+
         return view('bandeira.edit', compact('bandeira', 'grupoEconomicos'));
     }
 
@@ -71,6 +83,15 @@ class BandeiraController extends Controller
 
         $bandeira = Bandeira::findOrFail($id);
         $bandeira->update($validated);
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Bandeira editada',
+            'valores' => json_encode($bandeira->getChanges()),
+            'ip' => request()->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/bandeira');
     }
 
@@ -81,6 +102,15 @@ class BandeiraController extends Controller
     {
         $bandeira = Bandeira::find($id);
         $bandeira->delete();
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Bandeira removida',
+            'valores' => json_encode($bandeira->getAttributes()),
+            'ip' => request()->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/bandeira');
     }
 }

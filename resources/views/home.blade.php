@@ -7,6 +7,7 @@
         <button onclick="window.location.href='/unidades';">CRUD - Unidade</button>
         <button onclick="window.location.href='/colaboradores';">CRUD - Colaborador</button>
         <button onclick="window.location.href='/relatorio';">Relatório</button>
+        <button onclick="window.location.href='/auditoria';">Auditoria</button>
         <form method="POST" action="/logout">
             @csrf
             <button type="submit">Sair</button>

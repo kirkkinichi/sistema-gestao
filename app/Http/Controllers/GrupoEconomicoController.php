@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auditoria;
 use Illuminate\Http\Request;
 
 use App\Models\GrupoEconomico;
+use Illuminate\Support\Facades\Auth;
 
 class GrupoEconomicoController extends Controller
 {
@@ -35,6 +37,15 @@ class GrupoEconomicoController extends Controller
         ]);
 
         $grupoEconomico = GrupoEconomico::create($validated);
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Grupo Economico Criado',
+            'valores' => json_encode($grupoEconomico->getAttributes()),
+            'ip' => $request->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/grupo-economico');
     }
 
@@ -71,6 +82,15 @@ class GrupoEconomicoController extends Controller
 
         $grupoEconomico = GrupoEconomico::findOrFail($id);
         $grupoEconomico->update($validated);
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Grupo Economico Atualizado',
+            'valores' => json_encode($grupoEconomico->getAttributes()),
+            'ip' => request()->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/grupo-economico');
     }
 
@@ -81,6 +101,15 @@ class GrupoEconomicoController extends Controller
     {
         $grupoEconomico = GrupoEconomico::findOrFail($id);
         $grupoEconomico->delete();
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Grupo Economico Removido',
+            'valores' => json_encode($grupoEconomico->getAttributes()),
+            'ip' => request()->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/grupo-economico');
     }
 }

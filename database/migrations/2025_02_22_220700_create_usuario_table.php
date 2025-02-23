@@ -13,7 +13,7 @@ return new class extends Migration
     {
 
         Schema::create('usuario', function (Blueprint $table) {
-            $table->id();
+            $table->id()->primary();
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
@@ -21,7 +21,6 @@ return new class extends Migration
         });
 
         Schema::create('sessao', function (Blueprint $table) {
-            $table->string('id')->primary();
             $table->foreignId('usuario_id')->nullable()->index();
             $table->string('endereco_ip', 45)->nullable();
             $table->timestamp('ultimo_login');

@@ -12,6 +12,8 @@ class Bandeira extends Model
 
     protected $fillable = ['nome', 'grupo_economico_id'];
 
+    public $timestamps = true;
+
     public function grupoEconomico()
     {
         return $this->belongsTo(GrupoEconomico::class);

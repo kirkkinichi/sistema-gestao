@@ -16,6 +16,8 @@ class Unidade extends Model
 
     protected $fillable = ['nome_fantasia', 'razao_social', 'cnpj', 'bandeira_id'];
 
+    public $timestamps = true;
+
     public function bandeira()
     {
         return $this->belongsTo(Bandeira::class);

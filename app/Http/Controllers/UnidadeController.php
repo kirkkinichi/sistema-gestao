@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auditoria;
 use Illuminate\Http\Request;
 use App\Models\Unidade;
 use App\Models\Bandeira;
+use Illuminate\Support\Facades\Auth;
 
 class UnidadeController extends Controller
 {
@@ -42,6 +44,15 @@ class UnidadeController extends Controller
         ]);
 
         $unidade = Unidade::create($validate);
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Unidade Criada',
+            'valores' => json_encode($unidade->getAttributes()),
+            'ip' => $request->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/unidades');
     }
 
@@ -88,6 +99,15 @@ class UnidadeController extends Controller
 
         $unidade = Unidade::findOrFail($id);
         $unidade->update($validate);
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Unidade Atualizada',
+            'valores' => json_encode($unidade->getChanges()),
+            'ip' => $request->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/unidades');
     }
 
@@ -98,6 +118,15 @@ class UnidadeController extends Controller
     {
         $unidade = Unidade::findOrFail($id);
         $unidade->delete();
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Unidade Removida',
+            'valores' => json_encode($unidade->getAttributes()),
+            'ip' => request()->ip(),
+            'created_at' => now()
+        ]);
+
         return redirect('/unidades');
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\UnidadeController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\SessaoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\AuditoriaController;
 
 // Configuração de rota para a página inicial
 Route::view('/', 'home')->middleware('auth');
@@ -70,6 +71,8 @@ Route::get('/colaboradores/{colaborador}/edit', [ColaboradorController::class, '
 Route::delete('/colaboradores/{colaborador}', [ColaboradorController::class, 'destroy'])->middleware('auth');
 Route::patch('/colaboradores/{colaborador}', [ColaboradorController::class, 'update'])->middleware('auth');
 
+// Configuração de rotas para a Auditoria
+Route::get('/auditoria', [AuditoriaController::class, 'index'])->middleware('auth');
 
 // Route::resource('/api/grupo-economico', GrupoEconomicoController::class);
 

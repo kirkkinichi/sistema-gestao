@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sessao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -23,6 +24,12 @@ class SessaoController extends Controller
                 'email' => 'Credenciais inválidas.'
             ]);
         }
+
+        Sessao::updateOrCreate([
+            'usuario_id' => Auth::id(),
+            'endereco_ip' => request()->ip(),
+            'ultimo_login' => now(),
+        ]);
 
         request()->session()->regenerate();
 
