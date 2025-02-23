@@ -1,19 +1,34 @@
 <x-layout>
-    </h1>Registrar</h1>
-    <form method="POST" action="/registrar">
-        @csrf
-        <div class="mb-3">
-            <label for="email" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="email" name="email">
+    <div class="flex justify-center items-center min-h-screen bg-gray-100">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Registrar</h1>
+            <form method="POST" action="/registrar">
+                @csrf
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">E-mail</label>
+                    <input type="email" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-custom-yellow focus:border-custom-yellow" id="email" name="email">
+                </div>
+                @error('email')
+                        <div class="mt-2 text-sm text-red-500">{{ $message }}</div>
+                @enderror
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Senha (mínimo de 6 caracteres)</label>
+                    <input type="password" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-custom-yellow focus:border-custom-yellow" id="password" name="password">
+                </div>
+                @error('password')
+                        <div class="mt-2 text-sm text-red-500">{{ $message }}</div>
+                @enderror
+                <div class="mb-4">
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirme a senha</label>
+                    <input type="password" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-custom-yellow focus:border-custom-yellow" id="password_confirmation" name="password_confirmation">
+                </div>
+                <div class="flex justify-between items-center">
+                    <button type="submit" class="w-full py-3 bg-[#ffb800] text-white rounded-lg font-semibold hover:bg-[#ea9c47] focus:outline-none focus:ring-2 focus:ring-[#ffb800]">Registrar</button>
+                </div>
+                <div class="mt-4 text-center">
+                    <button type="button" class="w-full py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 focus:outline-none" onclick="window.location.href='/login'">Voltar</button>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Senha (mínimo de 6 caracteres)</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-        <div class="mb-3">
-            <label for="password_confirmation" class="form-label">Confirme a senha</label>
-            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
-        </div>
-        <button type="submit" class="btn btn-primary">Registrar</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='/login'">Voltar</button>
+    </div>
 </x-layout>
