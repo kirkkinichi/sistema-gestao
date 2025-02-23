@@ -17,6 +17,8 @@
         <button type="submit">Pesquisar</button>
     </form>
 
+    <a href="{{ route('relatorio.export', request()->query()) }}" class="btn btn-primary mb-3">Exportar para Excel</a>
+
     <table class="table table-bordered table-striped">
         <thead>
             <tr>

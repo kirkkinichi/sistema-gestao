@@ -25,7 +25,14 @@ Route::post('/registrar', [UsuarioController::class, 'store']);
 Route::post('/logout', [SessaoController::class, 'destroy']);
 
 // Configuração de rotas para o Relatório
-Route::get('/relatorio', [RelatorioController::class, 'index'])->middleware('auth');;
+Route::get('/relatorio', [RelatorioController::class, 'index'])
+->name('relatorio')
+->middleware('auth');
+
+// Configuração de rotas para exportação de Relatório em arquivo Excel
+Route::get('/relatorio/export', [RelatorioController::class, 'export'])
+->name('relatorio.export')
+->middleware('auth');
 
 // Configuração de rotas para o CRUD do Grupo Econômico
 Route::get('/grupo-economico', [GrupoEconomicoController::class, 'index'])->middleware('auth');
@@ -63,8 +70,6 @@ Route::get('/colaboradores/{colaborador}/edit', [ColaboradorController::class, '
 Route::delete('/colaboradores/{colaborador}', [ColaboradorController::class, 'destroy'])->middleware('auth');
 Route::patch('/colaboradores/{colaborador}', [ColaboradorController::class, 'update'])->middleware('auth');
 
-// Configuração de rota para página de Relatório
-Route::get('/relatorio', [RelatorioController::class, 'index'])->name('relatorio');
 
 // Route::resource('/api/grupo-economico', GrupoEconomicoController::class);
 
