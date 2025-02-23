@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\GrupoEconomico;
+use App\Models\Auditoria;
 
 use App\Exports\RelatorioExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -134,6 +136,18 @@ class RelatorioController extends Controller
                 }),
             ];
         });
+
+        Auditoria::create([
+            'usuario_id' => Auth::id(),
+            'acao' => 'Relatório Exportado',
+            'valores' => json_encode([
+                'search' => $search,
+                'tags' => $tags,
+                'data_count' => count($data),
+            ]),
+            'ip' => $request->ip(),
+            'created_at' => now(),
+        ]);
 
         return Excel::download(new RelatorioExport($data, $tags), 'relatorio.xlsx');
     }

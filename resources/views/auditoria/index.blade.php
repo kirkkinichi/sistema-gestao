@@ -26,7 +26,16 @@
 
                             @if($valores)
                                 @foreach ($valores as $campo => $valor)
-                                    <strong>{{ ucfirst($campo) }}:</strong> {{ is_array($valor) ? 'Array (detalhes ocultos)' : $valor }}<br>
+                                    <strong>{{ ucfirst($campo) }}:</strong>
+                                    @if(is_array($valor))
+                                        <ul>
+                                            @foreach($valor as $subCampo => $subValor)
+                                                <li><strong>{{ ucfirst($subCampo) }}:</strong> {{ $subValor }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        {{ $valor }}<br>
+                                    @endif
                                 @endforeach
                             @else
                                 <span>Nenhum valor registrado.</span>
