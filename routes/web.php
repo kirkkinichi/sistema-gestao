@@ -63,6 +63,8 @@ Route::get('/colaboradores/{colaborador}/edit', [ColaboradorController::class, '
 Route::delete('/colaboradores/{colaborador}', [ColaboradorController::class, 'destroy'])->middleware('auth');
 Route::patch('/colaboradores/{colaborador}', [ColaboradorController::class, 'update'])->middleware('auth');
 
+// Configuração de rota para página de Relatório
+Route::get('/relatorio', [RelatorioController::class, 'index'])->name('relatorio');
 
 // Route::resource('/api/grupo-economico', GrupoEconomicoController::class);
 
