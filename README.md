@@ -39,7 +39,6 @@ git clone https://github.com/kirkkinichi/sistema-gestao.git
 
 - Acesse o projeto pelo ambiente Ubuntu e execute:
 ```bash
-cd sistema-gestao
 ./vendor/bin/sail up -d
 ```
 
