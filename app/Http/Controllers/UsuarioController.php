@@ -6,6 +6,7 @@ use App\Models\Sessao;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Validator;
 
 class UsuarioController extends Controller
 {
@@ -14,13 +15,20 @@ class UsuarioController extends Controller
     }
 
     public function store() {
-
-        $attributes = request()->validate([
+        $validator = Validator::make(request()->all(), [
             'email' => ['required', 'email'],
             'password' => ['required', Password::min(6), 'confirmed'],
         ]);
 
-        $user = Usuario::create($attributes);
+        if (Usuario::where('email', request()->email)->exists()) {
+            return redirect()->back()->withInput()->withErrors(['email' => 'Este e-mail já está em uso.']);
+        }
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = Usuario::create($validator->validated());
 
         Auth::login($user);
 
@@ -30,6 +38,7 @@ class UsuarioController extends Controller
             'ultimo_login' => now(),
         ]);
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Conta criada com sucesso!');
     }
 }
+
