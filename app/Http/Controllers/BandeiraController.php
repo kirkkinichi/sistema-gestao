@@ -100,7 +100,12 @@ class BandeiraController extends Controller
      */
     public function destroy($id)
     {
-        $bandeira = Bandeira::find($id);
+        $bandeira = Bandeira::findOrFail($id);
+
+        if ($bandeira->unidades()->count() > 0) {
+            return redirect()->back()->with('error', 'Não é possível excluir esta Bandeira pois existem Unidades relacionadas a ela.');
+        }
+
         $bandeira->delete();
 
         Auditoria::create([
@@ -111,6 +116,6 @@ class BandeiraController extends Controller
             'created_at' => now()
         ]);
 
-        return redirect('/bandeira');
+        return redirect('/bandeira')->with('success', 'Bandeira excluída com sucesso.');
     }
 }

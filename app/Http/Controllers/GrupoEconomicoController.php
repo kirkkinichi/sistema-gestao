@@ -100,6 +100,15 @@ class GrupoEconomicoController extends Controller
     public function destroy($id)
     {
         $grupoEconomico = GrupoEconomico::findOrFail($id);
+
+        if ($grupoEconomico->bandeiras()->count() > 0) {
+            return redirect()->back()->with('error', 'Não é possível excluir este Grupo Econômico pois existem Bandeiras relacionadas a ele.');
+        }
+
+        if ($grupoEconomico->unidades()->count() > 0) {
+            return redirect()->back()->with('error', 'Não é possível excluir este Grupo Econômico pois existem Unidades relacionadas a ele.');
+        }
+
         $grupoEconomico->delete();
 
         Auditoria::create([
@@ -110,6 +119,6 @@ class GrupoEconomicoController extends Controller
             'created_at' => now()
         ]);
 
-        return redirect('/grupo-economico');
+        return redirect('/grupo-economico')->with('success', 'Grupo Econômico excluído com sucesso.');
     }
 }

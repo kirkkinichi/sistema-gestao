@@ -20,4 +20,9 @@ class GrupoEconomico extends Model
     {
         return $this->hasMany(Bandeira::class);
     }
+
+    public function unidades()
+    {
+        return $this->hasManyThrough(Unidade::class, Bandeira::class);
+    }
 }

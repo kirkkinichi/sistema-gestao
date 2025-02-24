@@ -117,6 +117,11 @@ class UnidadeController extends Controller
     public function destroy($id)
     {
         $unidade = Unidade::findOrFail($id);
+
+        if ($unidade->colaboradores()->count() > 0) {
+            return redirect()->back()->with('error', 'Não é possível excluir esta Unidade pois existem Colaboradores relacionados a ela.');
+        }
+
         $unidade->delete();
 
         Auditoria::create([
@@ -127,6 +132,6 @@ class UnidadeController extends Controller
             'created_at' => now()
         ]);
 
-        return redirect('/unidades');
+        return redirect('/unidades')->with('success', 'Unidade excluída com sucesso.');
     }
 }

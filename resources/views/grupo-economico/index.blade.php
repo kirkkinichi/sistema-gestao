@@ -2,6 +2,21 @@
     <div class="flex justify-center items-center min-h-screen bg-gray-100">
         <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
             <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">CRUD - Grupo Econômico</h1>
+
+            @if (session('error'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <strong class="font-bold">Erro!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <strong class="font-bold">Sucesso!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            @endif
+
             <div class="text-center mb-6">
                 <button onclick="window.location.href='/grupo-economico/create';" class="py-2 px-4 bg-[#ffb800] text-white rounded-lg font-semibold hover:bg-[#ea9c47] focus:outline-none focus:ring-2 focus:ring-[#ffb800]">Cadastrar</button>
             </div>

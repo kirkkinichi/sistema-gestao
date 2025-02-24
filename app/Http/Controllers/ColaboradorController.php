@@ -116,17 +116,17 @@ class ColaboradorController extends Controller
      */
     public function destroy($id)
     {
-        $colaboradores = Colaborador::findOrFail($id);
-        $colaboradores->delete();
+        $colaborador = Colaborador::findOrFail($id);
+        $colaborador->delete();
 
         Auditoria::create([
             'usuario_id' => Auth::id(),
             'acao' => 'Colaborador removido',
-            'valores' => json_encode($colaboradores->getAttributes()),
+            'valores' => json_encode($colaborador->getAttributes()),
             'ip' => request()->ip(),
             'created_at' => now()
         ]);
 
-        return redirect('/colaboradores');
+        return redirect('/colaboradores')->with('success', 'Colaborador excluído com sucesso.');
     }
 }
