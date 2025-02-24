@@ -7,6 +7,9 @@ use App\Models\Auditoria;
 
 class AuditoriaController extends Controller
 {
+    /**
+     * Exibe todos os registros de Auditoria
+     */
     public function index()
     {
         $auditorias = Auditoria::all();

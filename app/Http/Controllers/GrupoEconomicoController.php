@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class GrupoEconomicoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Lista todos os Grupos Econômico
      */
     public function index()
     {
@@ -20,7 +20,7 @@ class GrupoEconomicoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostra o formulário para criar um novo Grupo Econômico
      */
     public function create()
     {
@@ -28,7 +28,7 @@ class GrupoEconomicoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Armazena o Grupo Econômico no banco de dados
      */
     public function store(Request $request)
     {
@@ -50,7 +50,7 @@ class GrupoEconomicoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Exibe o Grupo Econômico
      */
     public function show($id)
     {
@@ -61,7 +61,7 @@ class GrupoEconomicoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edita o Grupo Econômico
      */
     public function edit($id)
     {
@@ -72,7 +72,7 @@ class GrupoEconomicoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza o Grupo Econômico
      */
     public function update($id)
     {
@@ -95,7 +95,7 @@ class GrupoEconomicoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove o Grupo Econômico
      */
     public function destroy($id)
     {

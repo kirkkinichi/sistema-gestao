@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ColaboradorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Lista todos os Colaboradores
      */
     public function index()
     {
@@ -20,7 +20,7 @@ class ColaboradorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostra o formulário para criar um novo Colaborador
      */
     public function create()
     {
@@ -29,7 +29,7 @@ class ColaboradorController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Armazena o Colaborador no banco de dados
      */
     public function store(Request $request)
     {
@@ -57,7 +57,7 @@ class ColaboradorController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Exibe o Colaborador
      */
     public function show($id)
     {
@@ -70,7 +70,7 @@ class ColaboradorController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edita o Colaborador
      */
     public function edit($id)
     {
@@ -83,7 +83,7 @@ class ColaboradorController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza o Colaborador
      */
     public function update(Request $request, $id)
     {
@@ -112,7 +112,7 @@ class ColaboradorController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove o Colaborador
      */
     public function destroy($id)
     {

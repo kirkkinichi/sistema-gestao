@@ -12,7 +12,7 @@ use App\Models\GrupoEconomico;
 class BandeiraController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Lista todas as Bandeiras
      */
     public function index()
     {
@@ -21,7 +21,7 @@ class BandeiraController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostra o formulário para criar uma nova Bandeira
      */
     public function create()
     {
@@ -30,7 +30,7 @@ class BandeiraController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Armazena a Bandeira no banco de dados
      */
     public function store(Request $request)
     {
@@ -61,7 +61,7 @@ class BandeiraController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edita a Bandeira
      */
     public function edit($id)
     {
@@ -72,7 +72,7 @@ class BandeiraController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza a Bandeira
      */
     public function update(Request $request, $id)
     {
@@ -96,7 +96,7 @@ class BandeiraController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove a Bandeira
      */
     public function destroy($id)
     {

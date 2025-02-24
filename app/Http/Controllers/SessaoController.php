@@ -9,10 +9,16 @@ use Illuminate\Validation\ValidationException;
 
 class SessaoController extends Controller
 {
+    /**
+     * Exibe o formulário de login
+     */
     public function create() {
         return view('sessao.login');
     }
 
+    /**
+     * Processa o login do usuário
+     */
     public function store() {
         $attributes = request()->validate([
             'email' => ['required', 'email'],
@@ -36,6 +42,9 @@ class SessaoController extends Controller
         return redirect('/');
     }
 
+    /**
+     * Processa o logout do Usuário
+     */
     public function destroy() {
         Auth::logout();
         return redirect('/login');

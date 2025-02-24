@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class UnidadeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Lista todas as Undidades
      */
     public function index()
     {
@@ -20,7 +20,7 @@ class UnidadeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostra o formulário para criar uma nova Unidade
      */
     public function create()
     {
@@ -29,7 +29,7 @@ class UnidadeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Armazena a Unidade no banco de dados
      */
     public function store(Request $request)
     {
@@ -57,7 +57,7 @@ class UnidadeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Exibe a Unidade
      */
     public function show($id)
     {
@@ -70,7 +70,7 @@ class UnidadeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edita a Unidade
      */
     public function edit($id)
     {
@@ -83,7 +83,7 @@ class UnidadeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza a Unidade
      */
     public function update(Request $request, $id)
     {
@@ -112,7 +112,7 @@ class UnidadeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove a Unidade
      */
     public function destroy($id)
     {

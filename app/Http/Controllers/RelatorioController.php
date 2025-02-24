@@ -23,6 +23,7 @@ class RelatorioController extends Controller
 
         $query = GrupoEconomico::with(['bandeiras.unidades.colaboradores']);
 
+        // Aplica o filtro de pesquisa, se fornecido
         if ($search) {
             $query->whereHas('bandeiras.unidades.colaboradores', function ($q) use ($search) {
                 $q->where(function ($subQuery) use ($search) {
@@ -37,6 +38,7 @@ class RelatorioController extends Controller
             });
         }
 
+        // Processa e formata os dados com base nas tags selecionadas e na pesquisa
         $data = $query->get()->map(function ($grupoEconomico) use ($tags, $search) {
             return [
                 'grupo_economico' => in_array('grupo_economico', $tags) ? $grupoEconomico->nome : null,
@@ -78,6 +80,9 @@ class RelatorioController extends Controller
         return view('relatorio', compact('data', 'search', 'tags'));
     }
 
+    /**
+     * Exporta os dados do relatório para o Excel
+     */
     public function export(Request $request)
     {
         $search = $request->input('search');
@@ -137,6 +142,7 @@ class RelatorioController extends Controller
             ];
         });
 
+        // Registra informações de Auditoria
         Auditoria::create([
             'usuario_id' => Auth::id(),
             'acao' => 'Relatório Exportado',
@@ -149,6 +155,7 @@ class RelatorioController extends Controller
             'created_at' => now(),
         ]);
 
+        // Gera e faz o download do arquivo Excel
         return Excel::download(new RelatorioExport($data, $tags), 'relatorio.xlsx');
     }
 
